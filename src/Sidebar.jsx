@@ -6,14 +6,14 @@ import ChatIcon from "@material-ui/icons/Chat";
 import { MoreVert } from "@material-ui/icons";
 import  SidebarChat  from './SidebarChat'
 import { useEffect, useState } from "react";
-import db from "./firebase.js"
+import db from "./firebase";
 
 
 function Sidebar() {
 const [rooms, setRooms] = useState([]);
 useEffect(() => {
-  db.collection('rooms').onSnapshot(snapshot => {
-    setRooms(snapshot.docs.map(doc => 
+ const unsubscribe = db.collection('rooms').onSnapshot((snapshot) => {
+    setRooms(snapshot.docs.map((doc) => 
       ({
         id: doc.id,
         data: doc.data(),
@@ -21,6 +21,9 @@ useEffect(() => {
       })
       ))
   });
+  return () => {
+    unsubscribe();
+  }
 }, []);
 
   return (

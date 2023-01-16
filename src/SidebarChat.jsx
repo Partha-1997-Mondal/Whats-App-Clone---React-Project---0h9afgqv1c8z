@@ -2,6 +2,7 @@ import { Avatar } from '@material-ui/core';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import './SidebarChat.css';
+import db from './firebase';
 
 
 
@@ -16,6 +17,9 @@ const [seed, setSeed] = useState("");
         const roomName = prompt("Please enter name for chat");
         if(roomName) {
             // do dome databse related work 
+            db.collection("rooms").add({
+                name: roomName,
+            });
         }
     };
 

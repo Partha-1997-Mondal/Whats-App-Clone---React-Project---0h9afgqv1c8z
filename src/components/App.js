@@ -1,25 +1,28 @@
-import React from 'react'
-import Sidebar from '../Sidebar';
-import Chat from '../Chat';
-import '../styles/App.css';
+import React from "react";
+import Sidebar from "../Sidebar";
+import Chat from "../Chat";
+import "../styles/App.css";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 
-
-const App = () => {
-
-
+function App() {
   return (
-    <div className='app'>
-   {/* <h1>we create whats app</h1> */}
-   <div className='app_body'>
-    <Sidebar />
-    <Chat />
-
-   </div>
+    <div className="app">
+      <div className="app_body">
+        <Router>
+          <Switch>
+            <Route path="/app">
+              <Sidebar />
+              <Chat />
+            </Route>
+            <Route path="/">
+              <h1>Home Screen</h1>
+            </Route>
+          </Switch>
+        </Router>
+      </div>
     </div>
- 
-  )
-}
-
+  );
+};
 
 export default App;

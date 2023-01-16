@@ -20,10 +20,10 @@ const firebaseConfig = {
 //  to store the dta
   const db = firebaseApp.firestore();
   // fire base authantication
-  const auth = firebase.auth();
-  // for google authantication
-  const provider = new firebase.auth.googleAuthProvider();
+  // const auth = firebase.auth();
+  // // for google authantication
+  // const provider = new firebase.auth.googleAuthProvider();
 
 
-export { auth, provider};
+// export { auth, provider};
 export default db;
