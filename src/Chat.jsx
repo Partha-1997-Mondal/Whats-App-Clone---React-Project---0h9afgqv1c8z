@@ -4,16 +4,28 @@ import React from 'react'
 import './Chat.css'
 import { AttachFile, InsertEmoticon, MoreVert, SearchOutlined } from '@material-ui/icons';
 import { Mic } from '@material-ui/icons';
+import { useParams } from 'react-router-dom';
 
 
 
 function Chat() {
     const [seed, setSeed] = useState("");
     const [input, setInput] = useState("");
+    const { roomId } = useParams();
+    const [ roomName, setRoomName ] = useState("");
+
+    useEffect(() => {
+        if (roomId) {
+            db.collection('rooms')
+            .doc(roomId)
+            .onSnapshot((snapshot) => setRoomName
+            (snapshot.data().name));
+        }
+    }, [roomId]);
     useEffect(() => {
         setSeed(Math.floor(Math.random() * 5000));
-    }, []);
-
+    }, [roomId]);
+    
 const sendMessage = (event) => {
     event.preventDefault();
     console.log("You type >>>>", input);
@@ -28,7 +40,7 @@ const sendMessage = (event) => {
         <div className='chat_header'>
         <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
         <div className='chat_headerInfo'>
-            <h3>Room Name</h3>
+            <h3>{roomName}</h3>
             <p>Last Sceen at ...</p>
         </div>
         <div className='chat_headerRight'>
